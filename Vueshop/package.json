@@ -1,0 +1,79 @@
+{
+  "name": "shop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@tiptap/starter-kit": "^2.0.0-beta.204",
+    "@tiptap/vue-3": "^2.0.0-beta.204",
+    "@toast-ui/editor": "^3.2.1",
+    "@vueup/vue-quill": "^1.0.0",
+    "axios": "^1.2.0",
+    "bootstrap": "^5.2.3",
+    "bootstrap-vue-3": "^0.4.10",
+    "core-js": "^3.8.3",
+    "jenesius-vue-modal": "^1.8.2",
+    "jquery": "^3.6.1",
+    "mitt": "^3.0.0",
+    "r2-summer-note-vue3": "^1.0.10",
+    "vue": "^3.2.45",
+    "vue-class-component": "^8.0.0-0",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^4.0.3",
+    "vue3-quill": "^0.3.0",
+    "vue3-summernote-editor": "^1.0.2",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/eslint-config-standard": "^6.1.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "lint-staged": "^11.1.2",
+    "typescript": "~4.5.5"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "@vue/standard",
+      "@vue/typescript/recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "rules": {
+      "space-before-function-paren": "off"
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": "vue-cli-service lint"
+  }
+}
