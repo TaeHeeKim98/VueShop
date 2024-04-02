@@ -81,9 +81,7 @@ export default {
         title: '그룹코드 등록'
       })
 
-      modal.onclose = () => {
-        console.log('창 닫힘')
-      }
+      modal.onclose = () => {}
     }
   }
 }
