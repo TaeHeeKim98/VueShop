@@ -12,6 +12,7 @@
         background-color: rgb(209, 209, 209);
         color: #2c3e50;
       "
+      @onclick="submit()"
     >
       올리기
     </button>
@@ -71,6 +72,11 @@ export default {
     }, 2000)
 
     return { state, onEditorBlur, onEditorFocus, onEditorReady, onEditorChange }
+  },
+  methods: {
+    submit() {
+      console.log()
+    }
   }
 }
 </script>
