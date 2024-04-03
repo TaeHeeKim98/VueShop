@@ -1,5 +1,12 @@
 <template>
-  <quill-editor v-model:value="state.content"></quill-editor>
+  <quill-editor
+    v-model:value="state.content"
+    @change="
+      (val) => {
+        editorText = val
+      }
+    "
+  ></quill-editor>
   <div>
     <button
       style="
@@ -12,7 +19,7 @@
         background-color: rgb(209, 209, 209);
         color: #2c3e50;
       "
-      @onclick="submit()"
+      @click="submit(editorText, title)"
     >
       올리기
     </button>
@@ -73,9 +80,16 @@ export default {
 
     return { state, onEditorBlur, onEditorFocus, onEditorReady, onEditorChange }
   },
+  props: { title: String },
+  data() {
+    return {
+      editorText: ''
+    }
+  },
   methods: {
-    submit() {
-      console.log()
+    submit(editorText, title) {
+      console.log(editorText.html)
+      console.log(title)
     }
   }
 }

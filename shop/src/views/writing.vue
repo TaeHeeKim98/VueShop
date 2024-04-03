@@ -14,9 +14,7 @@
       "
     />
     <div style="display: flex; justify-content: center; margin-top: 30px">
-      <div class="editor-page">
-        <editor />
-      </div>
+      <div class="editor-page"><editor :title="title" /></div>
     </div>
   </div>
 </template>
