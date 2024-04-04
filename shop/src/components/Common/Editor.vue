@@ -1,11 +1,8 @@
 <template>
   <quill-editor
     v-model:value="state.content"
-    @change="
-      (val) => {
-        editorText = val
-      }
-    "
+    :options="state.editorOption"
+    @change="onEditorChange($event)"
   ></quill-editor>
   <div>
     <button
@@ -19,7 +16,7 @@
         background-color: rgb(209, 209, 209);
         color: #2c3e50;
       "
-      @click="submit(editorText, title)"
+      @click="submit(state, title)"
     >
       올리기
     </button>
@@ -36,7 +33,7 @@ export default {
       content: '',
       _content: '',
       editorOption: {
-        placeholder: '',
+        placeholder: '내용을 입력해주세요...',
         modules: {
           toolbar: [
             ['bold', 'italic', 'underline', 'strike'],
@@ -82,13 +79,11 @@ export default {
   },
   props: { title: String },
   data() {
-    return {
-      editorText: ''
-    }
+    return {}
   },
   methods: {
-    submit(editorText, title) {
-      console.log(editorText.html)
+    submit(state, title) {
+      console.log(state._content)
       console.log(title)
     }
   }
@@ -100,7 +95,7 @@ export default {
 }
 .ql-container {
   width: 800px !important;
-  height: 500px;
+  height: 600px;
 }
 .ql-editor {
   height: 500px;

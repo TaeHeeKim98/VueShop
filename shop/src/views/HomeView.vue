@@ -3,7 +3,7 @@
     <div>
       <div style="margin-top: 20px">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
+          <div class="col" v-for="index in 6" :key="index">
             <div class="card" @click="openpopup()">
               <img src="@/assets/noimage.gif" class="card-img-top" alt="..." />
               <div class="card-body">
