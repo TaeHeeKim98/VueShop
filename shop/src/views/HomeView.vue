@@ -3,12 +3,12 @@
     <div>
       <div style="margin-top: 20px">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col" v-for="index in 6" :key="index">
-            <div class="card" @click="openpopup()">
+          <div class="col" v-for="(item,index) in data" :key="index">
+            <div class="card" @click="openpopup(item.no, item.title, item.contents, item.regDate)">
               <img src="@/assets/noimage.gif" class="card-img-top" alt="..." />
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card</p>
+                <h5 class="card-title">{{item.title}}</h5>
+                <p class="card-text">{{item.contents}}</p>
               </div>
             </div>
           </div>
@@ -25,6 +25,8 @@ import storyPopUp from '@/components/modal/StoryPopUp.vue'
 import { openModal } from 'jenesius-vue-modal'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://localhost'
+
 export default {
   data() {
     return {
@@ -33,10 +35,11 @@ export default {
   },
   created() {
     axios
-      .get('/api/home', {})
+      .get('/home', {})
       .then((res) => {
-        console.log('data : ' + res.data)
-        this.data = res.data
+        console.log('data : ' + JSON.stringify(res.data))
+        this.data = res.data.homelist
+        console.log('data111 : ' + JSON.stringify(this.data))
       })
       .catch((res) => {
         console.log('err : ' + res)
@@ -44,9 +47,12 @@ export default {
   },
   mounted() {},
   methods: {
-    async openpopup() {
+    async openpopup(no: Number, title: String, contents: String, regDate: String) {
       const modal = await openModal(storyPopUp, {
-        title: '그룹코드 등록'
+        no: no,
+        title: title,
+        contents: contents,
+        regDate: regDate
       })
 
       modal.onclose = () => {}

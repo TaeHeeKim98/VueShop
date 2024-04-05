@@ -2,6 +2,7 @@ package com.story.demo.controller.home;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,6 +16,7 @@ import com.story.demo.service.home.StoryHomeService;
 import com.story.demo.vo.home.StoryHomeVo;
 
 @Controller
+@CrossOrigin
 public class StoryHomeController {
 	// Set logger
 	private final Logger logger = LogManager.getLogger(this.getClass());
