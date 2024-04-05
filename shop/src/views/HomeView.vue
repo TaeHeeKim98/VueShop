@@ -23,6 +23,7 @@
 <script lang="ts">
 import storyPopUp from '@/components/modal/StoryPopUp.vue'
 import { openModal } from 'jenesius-vue-modal'
+import axios from 'axios'
 
 export default {
   data() {
@@ -30,6 +31,18 @@ export default {
       data: ''
     }
   },
+  created() {
+    axios
+      .get('/api/home', {})
+      .then((res) => {
+        console.log('data : ' + res.data)
+        this.data = res.data
+      })
+      .catch((res) => {
+        console.log('err : ' + res)
+      })
+  },
+  mounted() {},
   methods: {
     async openpopup() {
       const modal = await openModal(storyPopUp, {
@@ -38,6 +51,17 @@ export default {
 
       modal.onclose = () => {}
     }
+    // async getStoryList() {
+    //   await axios
+    //     .get('/', {})
+    //     .then((res) => {
+    //       console.log('data : ' + res.data)
+    //       this.data = res.data
+    //     })
+    //     .catch((res) => {
+    //       console.log(res)
+    //     })
+    // }
   }
 }
 </script>

@@ -25,7 +25,7 @@ public class StoryHomeController {
 	@Autowired
 	private StoryHomeService homeservice;
 	
-	@GetMapping("/")
+	@GetMapping("/home")
 	@ResponseBody
 	public Map<String, Object> home() throws Exception {
 		logger.info("home start");

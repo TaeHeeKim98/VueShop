@@ -12,7 +12,7 @@
     "@tiptap/vue-3": "^2.0.0-beta.204",
     "@toast-ui/editor": "^3.2.1",
     "@vueup/vue-quill": "^1.0.0",
-    "axios": "^1.2.0",
+    "axios": "^1.6.8",
     "bootstrap": "^5.2.3",
     "bootstrap-vue-3": "^0.4.10",
     "core-js": "^3.8.3",
