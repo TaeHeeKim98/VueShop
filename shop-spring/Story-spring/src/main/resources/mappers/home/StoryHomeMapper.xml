@@ -15,4 +15,6 @@
 		DELETE FROM story_info
 			where no = #{no}
 	</delete>
+	<insert id="createItem" parameterType="java.util.Map">
+	</insert>
 </mapper>

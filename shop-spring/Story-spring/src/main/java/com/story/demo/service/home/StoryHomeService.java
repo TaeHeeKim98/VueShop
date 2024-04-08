@@ -34,4 +34,8 @@ public class StoryHomeService {
 		return StoryHomeMapper.deleteItem(paramMap);
 	}
 
+	public boolean createItem(Map<String, Object> paramMap) {
+		return StoryHomeMapper.createItem(paramMap);
+	}
+
 }

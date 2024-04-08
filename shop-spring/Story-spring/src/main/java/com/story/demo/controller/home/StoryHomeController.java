@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,16 +46,26 @@ public class StoryHomeController {
 		
 		return resultMap;
 	}
+	@PostMapping("/CreateItem")
+	public void createItem(@RequestParam Map<String, Object> paramMap)throws Exception {
+		
+		boolean state = false;
+		logger.info("createItem start");
+		logger.info("   - param :" + paramMap);
+		
+		state = homeservice.createItem(paramMap);
+		logger.info("   - state :" + state);
+	}
 	
 	@DeleteMapping("/deletItem")
 	public void deletItem(@RequestParam Map<String, Object> paramMap) throws Exception {
 		boolean state = false;
 		
 		logger.info("delete start");
-		logger.info("param ----" + paramMap);
+		logger.info("   - param :" + paramMap);
 		state = (homeservice.deleteItem(paramMap));
 		
-		logger.info("state ----" + state);
+		logger.info("   - state :" + state);
 		
 	}
 }

@@ -12,5 +12,7 @@ public interface StoryHomeMapper {
 	public List<StoryHomeVo> homeList();
 
 	public boolean deleteItem(Map<String, Object> paramMap);
+
+	public boolean createItem(Map<String, Object> paramMap);
 	
 }

@@ -39,7 +39,7 @@
             font-weight: bold;
             color: white;
           "
-          @click="deleteItem(no, title, contents)"
+          @click="deleteItem(no)"
         >
           삭제
         </button>
@@ -78,6 +78,7 @@ export default {
         })
     },
     writing(no, title, contents) {
+      console.log(no, title, contents)
       router.push({
         name: 'writing',
         params: { no: no, _title: title, constents: contents }
