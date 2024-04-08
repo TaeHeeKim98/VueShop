@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,26 +47,36 @@ public class StoryHomeController {
 		
 		return resultMap;
 	}
-	@PostMapping("/CreateItem")
-	public void createItem(@RequestParam Map<String, Object> paramMap)throws Exception {
+	@PostMapping("/createItem")
+	public boolean createItem(@RequestParam Map<String, Object> paramMap)throws Exception {
 		
 		boolean state = false;
 		logger.info("createItem start");
 		logger.info("   - param :" + paramMap);
 		
-		state = homeservice.createItem(paramMap);
+		System.out.println("   - param :" + paramMap);
+		
+		if((paramMap.get("title")!= "") || (paramMap.get("contents") != "")) {
+			state = homeservice.createItem(paramMap);
+		}
+		
+		System.out.println("   - state :" + state);
 		logger.info("   - state :" + state);
+		
+		return state;
 	}
 	
 	@DeleteMapping("/deletItem")
-	public void deletItem(@RequestParam Map<String, Object> paramMap) throws Exception {
+	public boolean deletItem(@RequestParam Map<String, Object> paramMap) throws Exception {
 		boolean state = false;
 		
 		logger.info("delete start");
 		logger.info("   - param :" + paramMap);
+		System.out.println("   - param :" + paramMap);
 		state = (homeservice.deleteItem(paramMap));
 		
 		logger.info("   - state :" + state);
 		
+		return state;
 	}
 }

@@ -5,7 +5,7 @@
     </p>
     <input
       type="text"
-      v-model="title"
+      v-model="_title"
       style="
         width: 800px;
         height: 35px;
@@ -15,7 +15,7 @@
     />
     <div style="display: flex; justify-content: center; margin-top: 30px">
       <div class="editor-page">
-        <editor :title="title" :type="type" />
+        <editor :no="no" :title="title" :contents="contents" :type="type" />
       </div>
     </div>
   </div>
@@ -24,13 +24,12 @@
 import Editor from '@/components/Common/Editor.vue'
 
 export default {
-  name: 'writing-editor',
+  name: 'Rewriting-editor',
   components: { Editor },
-  props: {},
+  props: { no: Number, title: String, contents: String },
   data() {
     return {
-      title: '',
-      type: 'writing'
+      type: 'rewriting'
     }
   },
   // created() {},
@@ -40,7 +39,7 @@ export default {
   methods: {}
 }
 </script>
-<style>
+  <style>
 .note-editable {
   height: 400px;
 }

@@ -16,5 +16,7 @@
 			where no = #{no}
 	</delete>
 	<insert id="createItem" parameterType="java.util.Map">
+		INSERT INTO story_info(title, contents)
+			VALUES (#{title},#{contents})
 	</insert>
 </mapper>

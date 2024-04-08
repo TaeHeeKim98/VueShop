@@ -18,7 +18,7 @@
         {{ regDate }}
       </p>
       <div style="display: flex; justify-content: center">
-        <div style="display: flex; width: 800px; font-size: 1.3rem">
+        <div style="display: flex; width: 800px; font-size: 1.3rem" :v-html="contents">
           {{ contents }}
         </div>
       </div>
@@ -56,11 +56,11 @@ axios.defaults.baseURL = 'http://localhost'
 export default {
   components: {},
   props: { no: Number, title: String, contents: String, regDate: String },
-  data() {},
-  setup() {},
-  created() {},
-  mounted() {},
-  unmounted() {},
+  // data() {},
+  // setup() {},
+  // created() {},
+  // mounted() {},
+  // unmounted() {},
   methods: {
     close() {
       closeModal(this)
@@ -69,9 +69,14 @@ export default {
       console.log(no)
       await axios
         .delete('/deletItem?no=' + no)
-        .then(() => {
-          console.log('성공!')
-          router.go(0)
+        .then((res) => {
+          if (String(res.data) === 'true') {
+            console.log('성공!')
+            router.go(0)
+          } else {
+            alert('게시물 삭제에 실패했습니다.')
+            router.go(0)
+          }
         })
         .catch(() => {
           console.log('err!!!')
@@ -80,7 +85,7 @@ export default {
     writing(no, title, contents) {
       console.log(no, title, contents)
       router.push({
-        name: 'writing',
+        name: 'Rewriting',
         params: { no: no, _title: title, constents: contents }
       })
       closeModal(this)

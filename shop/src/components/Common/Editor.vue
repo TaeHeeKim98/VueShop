@@ -1,13 +1,12 @@
 <template>
   <quill-editor
     v-model:value="state.content"
-    ref="myTextEditor"
     :options="state.editorOption"
     @change="onEditorChange($event)"
-    @ready="onEditorReady($event)"
   ></quill-editor>
   <div>
     <button
+      v-if="type === 'writing'"
       style="
         border: none;
         border-radius: 7px;
@@ -18,20 +17,34 @@
         background-color: rgb(209, 209, 209);
         color: #2c3e50;
       "
-      @click="submit(state, title)"
+      @click="submit(no, title, state._content, this.type)"
     >
       올리기
+    </button>
+    <button
+      v-if="type === 'rewriting'"
+      style="
+        border: none;
+        border-radius: 7px;
+        width: 100px;
+        height: 35px;
+        font-size: 23px;
+        margin-top: 30px;
+        background-color: rgb(209, 209, 209);
+        color: #2c3e50;
+      "
+      @click="submit(no, title, state._content, this.type)"
+    >
+      수정
     </button>
   </div>
 </template>
 
 <script>
 import { reactive } from 'vue'
-import Quill from 'quill'
-import ImageUploader from 'quill-image-uploader'
 import axios from 'axios'
-
-Quill.register('modules/imageUploader', ImageUploader)
+import router from '@/router'
+axios.defaults.baseURL = 'http://localhost'
 
 export default {
   name: 'App',
@@ -64,18 +77,17 @@ export default {
       disabled: false
     })
 
-    const onEditorBlur = (quill) => {
-      console.log('editor blur!', quill)
+    const onEditorBlur = (editor) => {
+      console.log('editor blur!', editor)
     }
-    const onEditorFocus = (quill) => {
-      console.log('editor focus!', quill)
+    const onEditorFocus = (editor) => {
+      console.log('editor focus!', editor)
     }
-    const onEditorReady = (quill) => {
-      quill.getModule('toolbar').addHandler('image', this.imageHandler)
-      console.log('editor ready!', quill)
+    const onEditorReady = (editor) => {
+      console.log('editor ready!', editor)
     }
-    const onEditorChange = ({ quill, html, text }) => {
-      console.log('editor change!', quill, html, text)
+    const onEditorChange = ({ editor, html, text }) => {
+      console.log('editor change!', editor, html, text)
       state._content = html
     }
 
@@ -85,50 +97,58 @@ export default {
 
     return { state, onEditorBlur, onEditorFocus, onEditorReady, onEditorChange }
   },
-  props: { no: Number, title: String, contents: String },
+  props: { no: Number, title: String, contents: String, type: String },
   data() {
     return {}
   },
   methods: {
-    submit(state, title) {
-      console.log(state._content)
-      console.log(title)
-    },
-    imageHandler() {
-      console.log('imageHandler start=============')
-
-      // 1. 이미지를 저장할 input type=file DOM을 만든다.
-      const input = document.createElement('input')
-      // 속성 써주기
-      input.setAttribute('type', 'file')
-      input.setAttribute('accept', 'image/*')
-      input.click() // 에디터 이미지버튼을 클릭하면 이 input이 클릭된다.
-      // input이 클릭되면 파일 선택창이 나타난다.
-
-      // input에 변화가 생긴다면 = 이미지를 선택
-      input.addEventListener('change', async () => {
-        const file = input.files[0]
-        console.log('file :', file)
-
-        try {
-          // 파일 업로드 api 호출
-          const imgUrl = 'returnData'
-
-          // 현재 에디터 커서 위치 조회
-          const range = this.editor.getSelection()
-
-          // 커서 위치에 이미지 삽입
-          this.editor.insertEmbed(range.index, 'image', imgUrl)
-        } catch (error) {
-          console.log('error')
-        }
-      })
-    },
-    computed: {
-      editor() {
-        return this.$refs.myTextEditor.quill
+    submit(no, title, contents, type) {
+      // const params = {
+      //   no: no,
+      //   title: title,
+      //   contents: contents
+      // }
+      if (type === 'writing') {
+        console.log('param : ' + title + contents)
+        axios
+          .post('/createItem', null, {
+            params: {
+              title: title,
+              contents: contents
+            }
+          })
+          .then((res) => {
+            if (String(res.data) === 'true') {
+              console.log('성공!' + res.data)
+              router.push('/')
+            } else {
+              alert('게시물 등록에 실패했습니다.')
+              router.push('/')
+            }
+          })
+          .catch(() => {
+            console.log('err!!!')
+          })
+      }
+      if (type === 'rewriting') {
+        console.log(no)
+        console.log(title)
+        console.log(contents)
+        console.log(type)
       }
     }
+    // async createItem(title, contents) {
+    //   console.log('title : ' + title + 'constents : ' + contents)
+    // await axios
+    //   .post('/createItem', { no, title, constents })
+    //   .then(() => {
+    //     console.log('성공!')
+    //     router.go(0)
+    //   })
+    //   .catch(() => {
+    //     console.log('err!!!')
+    //   })
+    // }
   }
 }
 </script>
@@ -141,7 +161,7 @@ export default {
   height: 600px;
 }
 .ql-editor {
-  height: 500px;
+  height: 600px;
   overflow: scroll;
   overflow-x: hidden;
 }
