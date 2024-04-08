@@ -11,4 +11,8 @@
 		from
 			story_info
 	</select>
+	<delete id="deleteItem" parameterType="java.util.Map">
+		DELETE FROM story_info
+			where no = #{no}
+	</delete>
 </mapper>

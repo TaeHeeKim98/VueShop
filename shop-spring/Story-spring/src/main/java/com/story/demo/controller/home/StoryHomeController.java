@@ -1,21 +1,23 @@
 package com.story.demo.controller.home;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.story.demo.service.home.StoryHomeService;
 import com.story.demo.vo.home.StoryHomeVo;
 
-@Controller
+@RestController
 @CrossOrigin
 public class StoryHomeController {
 	// Set logger
@@ -30,7 +32,9 @@ public class StoryHomeController {
 	@GetMapping("/home")
 	@ResponseBody
 	public Map<String, Object> home() throws Exception {
+		
 		logger.info("home start");
+		className.getClass();
 		Map<String, Object> resultMap = new HashMap<>();
 		
 		List<StoryHomeVo> homeList = homeservice.homeList();
@@ -40,5 +44,17 @@ public class StoryHomeController {
 		resultMap.put("homelist", homeList);
 		
 		return resultMap;
+	}
+	
+	@DeleteMapping("/deletItem")
+	public void deletItem(@RequestParam Map<String, Object> paramMap) throws Exception {
+		boolean state = false;
+		
+		logger.info("delete start");
+		logger.info("param ----" + paramMap);
+		state = (homeservice.deleteItem(paramMap));
+		
+		logger.info("state ----" + state);
+		
 	}
 }

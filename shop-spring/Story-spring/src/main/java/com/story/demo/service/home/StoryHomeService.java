@@ -1,6 +1,7 @@
 package com.story.demo.service.home;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -27,6 +28,10 @@ public class StoryHomeService {
 		
 	public List<StoryHomeVo> homeList() {
 		return StoryHomeMapper.homeList();
+	}
+
+	public boolean deleteItem(Map<String, Object> paramMap) {	
+		return StoryHomeMapper.deleteItem(paramMap);
 	}
 
 }

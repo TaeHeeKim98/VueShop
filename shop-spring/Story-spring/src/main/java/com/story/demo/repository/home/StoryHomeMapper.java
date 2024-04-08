@@ -10,5 +10,7 @@ import com.story.demo.vo.home.StoryHomeVo;
 public interface StoryHomeMapper {
 
 	public List<StoryHomeVo> homeList();
+
+	public boolean deleteItem(Map<String, Object> paramMap);
 	
 }

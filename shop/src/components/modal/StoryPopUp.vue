@@ -4,9 +4,8 @@
       <p
         @click.self="close"
         style="
-          position: fixed;
-          top: 30px;
-          right: 190px;
+          display: flex;
+          justify-content: flex-end;
           z-index: 3;
           font-size: 20px;
           cursor: pointer;
@@ -19,19 +18,40 @@
         {{ regDate }}
       </p>
       <div style="display: flex; justify-content: center">
-        <div style="width: 800px; height: 950px; font-size: 1.3rem; overflow:scroll;">
+        <div style="display: flex; width: 800px; font-size: 1.3rem">
           {{ contents }}
         </div>
       </div>
-      <div style="display: flex; justify-content: space-between;">
-        <button style="background-color: rgb(100, 201, 100);; font-weight: bold; color: white; ">수정</button>
-        <button style="background-color: rgb(253, 86, 95); font-weight: bold; color: white; ">삭제</button>
+      <div style="display: flex; justify-content: space-between">
+        <button
+          style="
+            background-color: rgb(100, 201, 100);
+            font-weight: bold;
+            color: white;
+          "
+          @click="writing(no, title, contents)"
+        >
+          수정
+        </button>
+        <button
+          style="
+            background-color: rgb(253, 86, 95);
+            font-weight: bold;
+            color: white;
+          "
+          @click="deleteItem(no, title, contents)"
+        >
+          삭제
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { closeModal } from 'jenesius-vue-modal'
+import axios from 'axios'
+import router from '@/router'
+axios.defaults.baseURL = 'http://localhost'
 
 export default {
   components: {},
@@ -43,6 +63,25 @@ export default {
   unmounted() {},
   methods: {
     close() {
+      closeModal(this)
+    },
+    async deleteItem(no) {
+      console.log(no)
+      await axios
+        .delete('/deletItem?no=' + no)
+        .then(() => {
+          console.log('성공!')
+          router.go(0)
+        })
+        .catch(() => {
+          console.log('err!!!')
+        })
+    },
+    writing(no, title, contents) {
+      router.push({
+        name: 'writing',
+        params: { no: no, _title: title, constents: contents }
+      })
       closeModal(this)
     }
   }
@@ -75,7 +114,7 @@ div {
   border-radius: 8px;
   padding: 20px;
 }
-#white-bg >div> button {
+#white-bg > div > button {
   border: none;
   padding: 10px;
   width: 80px;

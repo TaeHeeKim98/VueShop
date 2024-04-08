@@ -14,7 +14,9 @@
       "
     />
     <div style="display: flex; justify-content: center; margin-top: 30px">
-      <div class="editor-page"><editor :title="title" /></div>
+      <div class="editor-page">
+        <editor :no="no" :title="title" :contents="contents" />
+      </div>
     </div>
   </div>
 </template>
@@ -23,11 +25,13 @@ import Editor from '@/components/Common/Editor.vue'
 
 export default {
   components: { Editor },
+  props: { no: Number, _title: String, contents: String },
   data() {
     return {
       title: ''
     }
   },
+  created() {},
   mounted() {},
   beforeUnmount() {},
   unmounted() {},

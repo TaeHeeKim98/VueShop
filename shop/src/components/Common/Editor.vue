@@ -77,7 +77,7 @@ export default {
 
     return { state, onEditorBlur, onEditorFocus, onEditorReady, onEditorChange }
   },
-  props: { title: String },
+  props: { no: Number, title: String, contents: String },
   data() {
     return {}
   },

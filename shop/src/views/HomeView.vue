@@ -3,12 +3,17 @@
     <div>
       <div style="margin-top: 20px">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col" v-for="(item,index) in data" :key="index">
-            <div class="card" @click="openpopup(item.no, item.title, item.contents, item.regDate)">
+          <div class="col" v-for="(item, index) in data" :key="index">
+            <div
+              class="card"
+              @click="
+                openpopup(item.no, item.title, item.contents, item.regDate)
+              "
+            >
               <img src="@/assets/noimage.gif" class="card-img-top" alt="..." />
               <div class="card-body">
-                <h5 class="card-title">{{item.title}}</h5>
-                <p class="card-text">{{item.contents}}</p>
+                <h5 class="card-title">{{ item.title }}</h5>
+                <p class="card-text">{{ item.contents }}</p>
               </div>
             </div>
           </div>
@@ -45,7 +50,12 @@ export default {
   },
   mounted() {},
   methods: {
-    async openpopup(no: Number, title: String, contents: String, regDate: String) {
+    async openpopup(
+      no: Number,
+      title: String,
+      contents: String,
+      regDate: String
+    ) {
       const modal = await openModal(storyPopUp, {
         no: no,
         title: title,
@@ -55,22 +65,11 @@ export default {
 
       modal.onclose = () => {}
     }
-    // async getStoryList() {
-    //   await axios
-    //     .get('/', {})
-    //     .then((res) => {
-    //       console.log('data : ' + res.data)
-    //       this.data = res.data
-    //     })
-    //     .catch((res) => {
-    //       console.log(res)
-    //     })
-    // }
   }
 }
 </script>
 <style>
-.card-title{
+.card-title {
   font-size: 30px;
   overflow: hidden;
   white-space: nowrap;
