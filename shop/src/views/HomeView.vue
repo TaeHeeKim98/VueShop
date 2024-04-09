@@ -10,7 +10,7 @@
                 openpopup(item.no, item.title, item.contents, item.regDate)
               "
             >
-              <img src="@/assets/noimage.gif" class="card-img-top" alt="..." />
+              <!-- <img src="@/assets/noimage.gif" class="card-img-top" alt="..." /> -->
               <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
                 <p class="card-text" v-html="item.contents"></p>
@@ -76,14 +76,14 @@ export default {
   text-overflow: ellipsis;
 }
 .card-text {
-  height: 70px;
+  height: 230px;
   overflow: hidden;
 }
 .col.card {
   z-index: 2;
 }
 .card-body {
-  height: 160px;
+  height: 300px;
   overflow: hidden;
 }
 .card {
