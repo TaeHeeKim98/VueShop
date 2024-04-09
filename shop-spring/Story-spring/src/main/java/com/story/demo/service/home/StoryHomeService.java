@@ -38,4 +38,13 @@ public class StoryHomeService {
 		return StoryHomeMapper.createItem(paramMap);
 	}
 
+	public StoryHomeVo getItem(Map<String, Object> paramMap) {
+		return StoryHomeMapper.getItem(paramMap);
+	}
+
+	public boolean updateItem(Map<String, Object> paramMap) {
+		return StoryHomeMapper.updateItem(paramMap);
+	}
+
+
 }

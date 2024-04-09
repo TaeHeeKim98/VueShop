@@ -14,5 +14,9 @@ public interface StoryHomeMapper {
 	public boolean deleteItem(Map<String, Object> paramMap);
 
 	public boolean createItem(Map<String, Object> paramMap);
+
+	public StoryHomeVo getItem(Map<String, Object> paramMap);
+
+	public boolean updateItem(Map<String, Object> paramMap);
 	
 }

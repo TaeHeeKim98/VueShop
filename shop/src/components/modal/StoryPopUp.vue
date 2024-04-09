@@ -18,9 +18,11 @@
         {{ regDate }}
       </p>
       <div style="display: flex; justify-content: center">
-        <div style="display: flex; width: 800px; font-size: 1.3rem" :v-html="contents">
-          {{ contents }}
-        </div>
+        <div
+          id="content_box"
+          style="width: 800px; font-size: 1.3rem"
+          v-html="contents"
+        ></div>
       </div>
       <div style="display: flex; justify-content: space-between">
         <button
@@ -67,26 +69,30 @@ export default {
     },
     async deleteItem(no) {
       console.log(no)
-      await axios
-        .delete('/deletItem?no=' + no)
-        .then((res) => {
-          if (String(res.data) === 'true') {
-            console.log('성공!')
-            router.go(0)
-          } else {
-            alert('게시물 삭제에 실패했습니다.')
-            router.go(0)
-          }
-        })
-        .catch(() => {
-          console.log('err!!!')
-        })
+      if (confirm('정말 삭제하시겠습니까?') === true) {
+        await axios
+          .delete('/deletItem?no=' + no)
+          .then((res) => {
+            if (String(res.data) === 'true') {
+              console.log('성공!')
+              router.go(0)
+            } else {
+              alert('게시물 삭제에 실패했습니다.')
+              router.go(0)
+            }
+          })
+          .catch(() => {
+            console.log('err!!!')
+          })
+      } else {
+        return alert('취소 하셨습니다.')
+      }
     },
-    writing(no, title, contents) {
-      console.log(no, title, contents)
+    writing(no) {
+      console.log('storypopup : ', no)
       router.push({
         name: 'Rewriting',
-        params: { no: no, _title: title, constents: contents }
+        params: { no: no }
       })
       closeModal(this)
     }
@@ -136,5 +142,8 @@ div {
 }
 #title {
   margin-top: 50px;
+}
+#content_box > p {
+  text-align: left;
 }
 </style>

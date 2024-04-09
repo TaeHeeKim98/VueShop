@@ -13,7 +13,7 @@
               <img src="@/assets/noimage.gif" class="card-img-top" alt="..." />
               <div class="card-body">
                 <h5 class="card-title">{{ item.title }}</h5>
-                <p class="card-text">{{ item.contents }}</p>
+                <p class="card-text" v-html="item.contents"></p>
               </div>
             </div>
           </div>

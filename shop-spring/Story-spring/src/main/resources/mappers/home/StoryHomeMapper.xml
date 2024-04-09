@@ -19,4 +19,17 @@
 		INSERT INTO story_info(title, contents)
 			VALUES (#{title},#{contents})
 	</insert>
+	<select id="getItem" parameterType="java.util.Map" resultType="com.story.demo.vo.home.StoryHomeVo">
+		select 
+			title 
+			,contents
+			from story_info
+			where no = #{no}
+			limit 1;
+	</select>
+	<update id="updateItem" parameterType="java.util.Map">
+		UPDATE story_info
+			SET title = #{title}, contents = #{contents}
+    		WHERE no = #{no}
+	</update>
 </mapper>

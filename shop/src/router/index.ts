@@ -16,10 +16,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(
         /* webpackChunkName: "about", webpackPrefetch:true */ '../views/writing.vue'
-      )
+      ),
+    props: true
   },
   {
-    path: '/rewriting',
+    path: '/rewriting/:no',
     name: 'Rewriting',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -27,7 +28,8 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(
         /* webpackChunkName: "about", webpackPrefetch:true */ '../views/Rewriting.vue'
-      )
+      ),
+    props: true
   }
 ]
 

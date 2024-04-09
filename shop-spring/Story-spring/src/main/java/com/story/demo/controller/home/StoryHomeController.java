@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,36 @@ public class StoryHomeController {
 		return state;
 	}
 	
+	@GetMapping("/getItem")
+	public Map<String, Object> getItem(@RequestParam Map<String, Object> paramMap) throws Exception {
+		logger.info("getItem start");
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		System.out.println("   - param :" + paramMap);
+		
+		StoryHomeVo rewritingItem = homeservice.getItem(paramMap);
+		
+		System.out.println("   - rewritingItem :" + rewritingItem);
+		
+		resultMap.put("getItem", rewritingItem);
+		
+		return resultMap;
+	}
+	
+	@PutMapping("/updateItem")
+	public boolean updateItem(@RequestParam Map<String, Object> paramMap) throws Exception {
+		logger.info("updateItem start");
+		boolean state = false;
+		
+		System.out.println("   - param :" + paramMap);
+		
+		state = homeservice.updateItem(paramMap);
+		
+		System.out.println("   - state :" + state);
+		
+		return state;
+	}
+	
 	@DeleteMapping("/deletItem")
 	public boolean deletItem(@RequestParam Map<String, Object> paramMap) throws Exception {
 		boolean state = false;
@@ -79,4 +110,6 @@ public class StoryHomeController {
 		
 		return state;
 	}
+	
+	
 }

@@ -97,17 +97,26 @@ export default {
 
     return { state, onEditorBlur, onEditorFocus, onEditorReady, onEditorChange }
   },
-  props: { no: Number, title: String, contents: String, type: String },
+  props: { no: Number, title: String, type: String },
+  created() {
+    console.log('editor: ', this.no + this.title + this.contents)
+    axios
+      .get('/getItem', {
+        params: {
+          no: this.no
+        }
+      })
+      .then((res) => {
+        console.log('editor/getItem : ', JSON.stringify(res.data.getItem))
+        this.state.content = res.data.getItem.contents
+      })
+  },
+  mounted() {},
   data() {
     return {}
   },
   methods: {
     submit(no, title, contents, type) {
-      // const params = {
-      //   no: no,
-      //   title: title,
-      //   contents: contents
-      // }
       if (type === 'writing') {
         console.log('param : ' + title + contents)
         axios
@@ -120,6 +129,7 @@ export default {
           .then((res) => {
             if (String(res.data) === 'true') {
               console.log('성공!' + res.data)
+              alert('게시물 등록 성공!')
               router.push('/')
             } else {
               alert('게시물 등록에 실패했습니다.')
@@ -131,24 +141,33 @@ export default {
           })
       }
       if (type === 'rewriting') {
-        console.log(no)
-        console.log(title)
-        console.log(contents)
-        console.log(type)
+        console.log('param : ' + no + title + contents)
+        axios
+          .put('/updateItem', null, {
+            params: {
+              no: no,
+              title: title,
+              contents: contents
+            }
+          })
+          .then((res) => {
+            if (String(res.data) === 'false') {
+              console.log('실패! : ' + res.data)
+              alert('수정에 실패하였습니다.')
+            }
+            if (String(res.data) === 'true') {
+              console.log('수정 완료! : ' + res.data)
+              alert('수정 성공!')
+            }
+            router.push('/')
+          })
+          .catch((res) => {
+            console.log('실패! : ' + res)
+            alert('수정에 실패하였습니다.')
+            router.push(0)
+          })
       }
     }
-    // async createItem(title, contents) {
-    //   console.log('title : ' + title + 'constents : ' + contents)
-    // await axios
-    //   .post('/createItem', { no, title, constents })
-    //   .then(() => {
-    //     console.log('성공!')
-    //     router.go(0)
-    //   })
-    //   .catch(() => {
-    //     console.log('err!!!')
-    //   })
-    // }
   }
 }
 </script>
