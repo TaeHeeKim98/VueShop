@@ -111,7 +111,6 @@ export default {
         this.state.content = res.data.getItem.contents
       })
   },
-  mounted() {},
   data() {
     return {}
   },

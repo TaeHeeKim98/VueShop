@@ -143,7 +143,7 @@ div {
 #title {
   margin-top: 50px;
 }
-#content_box > p {
+#content_box {
   text-align: left;
 }
 </style>
